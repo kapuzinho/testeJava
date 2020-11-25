@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Resultado</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<!-- Inclui as bibliotecas do Bootstrap -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">
+<!-- Optional theme -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+	integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+	crossorigin="anonymous">
+<!-- Latest compiled and minified JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+	crossorigin="anonymous"></script>
+</head>
+<body>
+	<div class="row">
+		<center>Lista de Clientes</center>
+	</div>
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th scope="col">#</th>
+				<th scope="col">Nome</th>
+				<th scope="col">Cpf</th>
+				<th scope="col">Telefone</th>
+				<th scope="col">Cep</th>
+				<th scope="col">Cidade</th>
+				<th scope="col">Uf</th>
+				<th scope="col">Bairro</th>
+				<th scope="col">Rua</th>
+				<th scope="col">Email</th>
+				<th scope="col">Editar</th>
+				<th scope="col">Excluir</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="cliente : ${clientes}">
+				<td th:text="${cliente.id}">ID</td>
+				<td th:text="${cliente.nome}">Nome</td>
+				<td th:text="${cliente.cpf}">Cpf</td>
+				<td th:text="${cliente.telefone}">Telefone</td>
+				<td th:text="${cliente.cep}">Cep</td>
+				<td th:text="${cliente.cidade}">Cidade</td>
+				<td th:text="${cliente.uf}">Uf</td>
+				<td th:text="${cliente.bairro}">Bairro</td>
+				<td th:text="${cliente.rua}">Rua</td>
+				<td th:text="${cliente.email}">Email</td>
+				<td>
+					<form class="form-signin" method="post" action="editarCliente">
+						<input type="hidden" name="id"
+							th:value="${cliente.id}" /> <input type="submit" value="Editar"
+							class="btn btn-primary" />
+					</form>
+				</td>
+				<td>
+					<form class="form-signin" method="post" action="excluirCliente">
+						<input type="hidden" name="id"
+							th:value="${cliente.id}" /> <input type="submit" value="Excluir"
+							class="btn btn-danger" />
+					</form>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<!-- Modal De Cadastro de Clientes-->
+	<form class="form-signin" method="post" action="salvarCliente">
+		<div class="modal fade" id="modalCadastroClientes" tabindex="-1"
+			role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<center>
+							<h5 class="modal-title" id="modalCadastroClientes">Cadastro
+								de Clientes</h5>
+						</center>
+					</div>
+					<div class="modal-body">
+						<div class="input-group input-group-sm mb-3">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="inputGroup-sizing-sm">Nome</span>
+							</div>
+							<input type="text" class="form-control" aria-label="Small"
+								style="width: 313%;" aria-describedby="inputGroup-sizing-sm"
+								id="nome" name="nome" maxlength="100">
+
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="inputGroup-sizing-sm">Cpf</span>
+							</div>
+							<input type="text" class="form-control" aria-label="Small"
+								aria-describedby="inputGroup-sizing-sm" id="cpf" name="cpf"
+								maxlength="14">
+
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="inputGroup-sizing-sm">Email</span>
+							</div>
+							<input type="text" class="form-control" aria-label="Small"
+								aria-describedby="inputGroup-sizing-sm" id="email" name="email"
+								style="width: 150%;">
+
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="inputGroup-sizing-sm">Telefone</span>
+							</div>
+							<input type="text" class="form-control" aria-label="Small"
+								aria-describedby="inputGroup-sizing-sm" id="telefone"
+								name="telefone" maxlength="15">
+
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="inputGroup-sizing-sm">Cep</span>
+							</div>
+							<input type="text" class="form-control" aria-label="Small"
+								aria-describedby="inputGroup-sizing-sm" id="cep" name="cep"
+								maxlength="15">
+
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="inputGroup-sizing-sm">Rua</span>
+							</div>
+							<input type="text" class="form-control" aria-label="Small"
+								aria-describedby="inputGroup-sizing-sm" id="rua" name="rua"
+								style="width: 155%;">
+						</div>
+
+						<div class="input-group-prepend">
+							<span class="input-group-text" id="inputGroup-sizing-sm">Bairro</span>
+						</div>
+						<input type="text" class="form-control" aria-label="Small"
+							aria-describedby="inputGroup-sizing-sm" id="bairro" name="bairro"
+							style="width: 75%;">
+						<div class="input-group-prepend">
+							<span class="input-group-text" id="inputGroup-sizing-sm">Cidade</span>
+						</div>
+						<input type="text" class="form-control" aria-label="Small"
+							aria-describedby="inputGroup-sizing-sm" id="cidade" name="cidade"
+							style="width: 75%;">
+
+						<div class="input-group-prepend">
+							<span class="input-group-text" id="inputGroup-sizing-sm">Estado</span>
+						</div>
+						<input type="text" class="form-control" aria-label="Small"
+							aria-describedby="inputGroup-sizing-sm" id="uf" name="uf"
+							style="width: 11%;"> <br>
+						<button type="button" class="btn btn-secondary"
+							data-dismiss="modal">Cancelar</button>
+						<input type="submit" class="btn btn-primary" value="Salvar" />
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<button th:if="${adminLogado.tipo == '1'}" type="button"
+		class="btn btn-success" data-toggle="modal"
+		data-target="#modalCadastroClientes"
+		style="margin-left: 1%; margin-bottom: 0.5%;">Cadastrar
+		Cliente</button>
+	<br>
+
+	<form class="form-signin" method="post" action="sair">
+		<input type="submit" class="btn btn-danger" value="Sair"
+			style="width: 10%; margin-left: 1%;" />
+	</form>
+	<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+	<script type="text/javascript"
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.0/jquery.mask.js"></script>
+	<script
+		src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+	<script>
+		$(document).ready(function() {
+			var $seuCampoCpf = $("#cpf");
+			var $campoCep = $("#cep");
+			$seuCampoCpf.mask('000.000.000-00', {
+				reverse : true
+			});
+
+			$campoCep.mask('00.000-000', {
+				reverse : true
+			});
+		});
+
+		$(document)
+				.ready(
+						function() {
+							var SPMaskBehavior = function(val) {
+								return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000'
+										: '(00) 0000-00009';
+							}, spOptions = {
+								onKeyPress : function(val, e, field, options) {
+									field.mask(SPMaskBehavior.apply({},
+											arguments), options);
+								}
+							};
+
+							$('#telefone').mask(SPMaskBehavior, spOptions);
+						});
+
+		$(document)
+				.ready(
+						function() {
+
+							function limpa_formulário_cep() {
+								// Limpa valores do formulário de cep.
+								$("#rua").val("");
+								$("#bairro").val("");
+								$("#cidade").val("");
+								$("#uf").val("");
+							}
+							;
+
+							$("#cep")
+									.blur(
+											function() {
+
+												//Nova variável "cep" somente com dígitos.
+												var cep = $(this).val()
+														.replace(/\D/g, '');
+
+												//Verifica se campo cep possui valor informado.
+												if (cep != "") {
+
+													//Expressão regular para validar o CEP.
+													var validacep = /^[0-9]{8}$/;
+
+													//Valida o formato do CEP.
+													if (validacep.test(cep)) {
+
+														//Preenche os campos com "..." enquanto consulta webservice.
+														$("#rua").val("...");
+														$("#bairro").val("...");
+														$("#cidade").val("...");
+														$("#uf").val("...");
+														$("#ibge").val("...");
+
+														//Consulta o webservice viacep.com.br/
+														$
+																.getJSON(
+																		"https://viacep.com.br/ws/"
+																				+ cep
+																				+ "/json/?callback=?",
+																		function(
+																				dados) {
+
+																			if (!("erro" in dados)) {
+																				//Atualiza os campos com os valores da consulta.
+																				$(
+																						"#rua")
+																						.val(
+																								dados.logradouro);
+																				$(
+																						"#bairro")
+																						.val(
+																								dados.bairro);
+																				$(
+																						"#cidade")
+																						.val(
+																								dados.localidade);
+																				$(
+																						"#uf")
+																						.val(
+																								dados.uf);
+																				$(
+																						"#ibge")
+																						.val(
+																								dados.ibge);
+																			} //end if.
+																			else {
+																				//CEP pesquisado não foi encontrado.
+																				limpa_formulário_cep();
+																				alert("CEP não encontrado.");
+																			}
+																		});
+													} //end if.
+													else {
+														//cep é inválido.
+														limpa_formulário_cep();
+														alert("Formato de CEP inválido.");
+													}
+												} //end if.
+												else {
+													//cep sem valor, limpa formulário.
+													limpa_formulário_cep();
+												}
+											});
+						});
+	</script>
+</body>
+</html>
